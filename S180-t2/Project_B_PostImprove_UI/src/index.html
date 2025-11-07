@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<title>Post-Improvement - Create Task Wizard</title>
+<link rel='stylesheet' href='styles.improved.css'/>
+</head>
+<body>
+  <button id='openWizard'>Create Task</button>
+  <div id='wizard' class='hidden'>
+    <div class='wizard-step' data-step='1'>
+      <h3>Step 1 — Basic Info</h3>
+      <label>Title</label>
+      <input id='title' name='title'/>
+      <label>Due Date</label>
+      <input id='due' type='date'/>
+      <button id='next1'>Next</button>
+    </div>
+
+    <div class='wizard-step hidden' data-step='2'>
+      <h3>Step 2 — Assignment</h3>
+      <label>Assignee</label>
+      <select id='assignee'>
+      </select>
+      <button id='prev2'>Back</button>
+      <button id='next2'>Next</button>
+    </div>
+
+    <div class='wizard-step hidden' data-step='3'>
+      <h3>Step 3 — Optional Attachments & Tags</h3>
+      <div id='lazy-tags'>Loading tags lazily...</div>
+      <div id='attachments'>Add attachments later</div>
+      <button id='prev3'>Back</button>
+      <button id='finish'>Create</button>
+    </div>
+    <button id='close'>Close</button>
+  </div>
+  <script src='wizard.js'></script>
+</body>
+</html>

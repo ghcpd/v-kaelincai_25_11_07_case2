@@ -1,0 +1,1 @@
+python -m venv .venv; .\.venv\Scripts\Activate.ps1; pip install -r requirements.txt; playwright install; Start-Process -NoNewWindow -FilePath python -ArgumentList 'server\\server.py' ; Start-Sleep -Seconds 2; python tests\test_pre_ui.py; Get-Process -Name python | Stop-Process -Force
