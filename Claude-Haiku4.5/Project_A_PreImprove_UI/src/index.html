@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Pre-Improvement</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Management Platform - Original Version</h1>
+            <p>Current implementation with slow, cluttered Create Task modal</p>
+        </header>
+        
+        <main>
+            <div class="task-list">
+                <div class="task-header">
+                    <h2>My Tasks</h2>
+                    <button id="createTaskBtn" class="btn-primary">Create New Task</button>
+                </div>
+                <div class="tasks">
+                    <div class="task-item">
+                        <h3>Sample Task 1</h3>
+                        <p>Due: 2025-11-10</p>
+                        <span class="status">In Progress</span>
+                    </div>
+                    <div class="task-item">
+                        <h3>Sample Task 2</h3>
+                        <p>Due: 2025-11-12</p>
+                        <span class="status">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Task</h2>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            
+            <form id="taskForm" class="task-form">
+                <!-- Loading indicator -->
+                <div id="loadingIndicator" class="loading-indicator">
+                    <div class="spinner"></div>
+                    <p>Loading form data...</p>
+                </div>
+                
+                <!-- Form content - hidden initially -->
+                <div id="formContent" class="form-content" style="display: none;">
+                    <!-- Non-essential fields first (poor UX) -->
+                    <div class="form-section">
+                        <h3>Project Information</h3>
+                        <div class="form-group">
+                            <label for="projectCategory">Project Category:</label>
+                            <select id="projectCategory" name="projectCategory">
+                                <option value="">Select a category...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="department">Department:</label>
+                            <select id="department" name="department">
+                                <option value="">Select department...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Tags section (loads slowly) -->
+                    <div class="form-section">
+                        <h3>Tags & Labels</h3>
+                        <div class="form-group">
+                            <label for="tags">Tags:</label>
+                            <div id="tagsContainer" class="tags-container">
+                                <div class="tags-loading">Loading available tags...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team members section (loads slowly) -->
+                    <div class="form-section">
+                        <h3>Team Assignment</h3>
+                        <div class="form-group">
+                            <label for="assignee">Assignee:</label>
+                            <select id="assignee" name="assignee">
+                                <option value="">Loading team members...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="watchers">Watchers:</label>
+                            <div id="watchersContainer" class="watchers-container">
+                                <div class="watchers-loading">Loading team members...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Attachments section (loads slowly) -->
+                    <div class="form-section">
+                        <h3>File Attachments</h3>
+                        <div class="form-group">
+                            <label for="attachments">Attachments:</label>
+                            <div id="attachmentsContainer" class="attachments-container">
+                                <div class="attachments-loading">Loading attachment options...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Important fields buried at the bottom (poor UX) -->
+                    <div class="form-section">
+                        <h3>Task Details</h3>
+                        <div class="form-group">
+                            <label for="title">Task Title: <span class="required">*</span></label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="priority">Priority: <span class="required">*</span></label>
+                            <select id="priority" name="priority" required>
+                                <option value="">Select priority...</option>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dueDate">Due Date: <span class="required">*</span></label>
+                            <input type="date" id="dueDate" name="dueDate" required>
+                        </div>
+                    </div>
+
+                    <!-- More non-essential fields -->
+                    <div class="form-section">
+                        <h3>Advanced Options</h3>
+                        <div class="form-group">
+                            <label for="estimatedHours">Estimated Hours:</label>
+                            <input type="number" id="estimatedHours" name="estimatedHours" min="0" step="0.5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customFields">Custom Fields:</label>
+                            <div id="customFieldsContainer" class="custom-fields-container">
+                                <div class="custom-fields-loading">Loading custom fields...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
+                        <button type="submit" id="submitBtn" class="btn-primary" disabled>Create Task</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="modal.js"></script>
+</body>
+</html>
