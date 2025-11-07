@@ -1,0 +1,1 @@
+Logs will be appended when tests run. Use the Flask server's stdout for runtime logs.

@@ -1,0 +1,6 @@
+body{font-family:Arial,sans-serif;margin:2rem}
+.hidden{display:none}
+.modal-content{background:#fff;padding:1rem;border:1px solid #ccc;width:600px}
+.step{margin:0.5rem 0}
+#tagList .tag{display:inline-block;padding:4px;margin:2px;background:#efe}
+#attachList .attach{display:block;margin:4px 0}
