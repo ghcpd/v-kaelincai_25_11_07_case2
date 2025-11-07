@@ -1,0 +1,39 @@
+{
+  "cases": [
+    {
+      "id": "normal",
+      "description": "Typical user creating a task with title, assignee, due date",
+      "input": {"title": "Buy groceries", "assignee": "Member 1", "dueDate": "2025-12-01"},
+      "env": {"latency_ms": 0, "tags_size": 20, "members_size": 10, "attach_size": 5},
+      "expected": {"modal_load_ms_max": 800, "title_visible": true}
+    },
+    {
+      "id": "heavy_data",
+      "description": "Many tags and large attachments to trigger lazy loading",
+      "input": {"title": "Project plan", "assignee": "Member 2", "dueDate": "2025-12-15"},
+      "env": {"latency_ms": 0, "tags_size": 1000, "members_size": 200, "attach_size": 200},
+      "expected": {"modal_load_ms_max": 3000, "title_visible": true}
+    },
+    {
+      "id": "slow_network",
+      "description": "Simulate high latency network",
+      "input": {"title": "Sync meeting", "assignee": "Member 3", "dueDate": "2025-11-20"},
+      "env": {"latency_ms": 800, "tags_size": 200, "members_size": 50, "attach_size": 50},
+      "expected": {"modal_load_ms_max": 5000, "title_visible": true}
+    },
+    {
+      "id": "malformed_inputs",
+      "description": "Missing required fields and non-string values",
+      "input": {"title": "", "assignee": 123, "dueDate": "invalid-date"},
+      "env": {"latency_ms": 0, "tags_size": 20, "members_size": 10, "attach_size": 2},
+      "expected": {"modal_load_ms_max": 1000, "title_visible": false}
+    },
+    {
+      "id": "accessibility",
+      "description": "Keyboard navigation and screen-reader friendly labels",
+      "input": {"title": "Accessibility test", "assignee": "Member 1", "dueDate": "2025-12-31"},
+      "env": {"latency_ms": 0, "tags_size": 30, "members_size": 10, "attach_size": 3},
+      "expected": {"modal_load_ms_max": 1000, "title_visible": true, "a11y_labels": true}
+    }
+  ]
+}
