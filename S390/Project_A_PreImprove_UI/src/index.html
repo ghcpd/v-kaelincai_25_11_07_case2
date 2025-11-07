@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TaskApp - Pre-Improvement</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>TaskApp (Pre-Improvement)</h1>
+    <button id="openModal">Create Task</button>
+  </header>
+  
+  <div id="modal" class="hidden">
+    <div class="modal-content">
+      <h2>Create Task</h2>
+      <!-- Fields intentionally in poor order -->
+      <label for="description">Description</label>
+      <textarea id="description"></textarea>
+
+      <label for="tags">Tags</label>
+      <select id="tags" multiple></select>
+
+      <label for="assignees">Assignee</label>
+      <select id="assignees"></select>
+
+      <label for="attachments">Attachments</label>
+      <div id="attachments"></div>
+
+      <label for="title">Title</label>
+      <input id="title" type="text">
+
+      <label for="due">Due Date</label>
+      <input id="due" type="date">
+
+      <button id="createTask">Create</button>
+      <button id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script src="modal.js"></script>
+</body>
+</html>

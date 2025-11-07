@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TaskApp - Post-Improvement</title>
+  <link rel="stylesheet" href="styles.improved.css">
+</head>
+<body>
+  <header>
+    <h1>TaskApp (Post-Improvement)</h1>
+    <button id="openWizard">Create Task</button>
+  </header>
+  
+  <div id="wizard" class="hidden">
+    <div class="wizard-content">
+      <h2>Create Task - Step <span id="stepNumber">1</span></h2>
+      <form id="taskForm">
+        <div class="step" id="step1">
+          <label for="title">Title</label>
+          <input id="title" type="text" aria-label="Title">
+          <label for="due">Due Date</label>
+          <input id="due" type="date" aria-label="Due Date">
+          <button type="button" id="next1">Next</button>
+        </div>
+        <div class="step hidden" id="step2">
+          <label for="assignees">Assignee</label>
+          <select id="assignees" aria-label="Assignee"></select>
+          <label for="tags">Tags</label>
+          <select id="tags" multiple aria-label="Tags"></select>
+          <button type="button" id="prev2">Back</button>
+          <button type="button" id="next2">Next</button>
+        </div>
+        <div class="step hidden" id="step3">
+          <label for="attachments">Attachments</label>
+          <div id="attachments"></div>
+          <button type="button" id="prev3">Back</button>
+          <button type="button" id="createTask">Create</button>
+        </div>
+      </form>
+      <button id="closeWizard">Close</button>
+    </div>
+  </div>
+  
+  <script src="wizard.js"></script>
+</body>
+</html>
