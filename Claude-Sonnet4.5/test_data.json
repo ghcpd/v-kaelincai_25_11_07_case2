@@ -1,0 +1,191 @@
+{
+  "test_cases": [
+    {
+      "test_id": "TC001_normal_task",
+      "description": "Normal user creating a typical task with title, assignee, and due date",
+      "input": {
+        "task_title": "Review Q4 budget proposal",
+        "task_description": "Review and approve the Q4 budget for marketing department",
+        "assignee": "john.doe@company.com",
+        "due_date": "2025-11-15",
+        "priority": "high",
+        "tags": ["budget", "review"],
+        "attachments": []
+      },
+      "environment": {
+        "network_latency_ms": 50,
+        "tag_count": 10,
+        "member_count": 5,
+        "attachment_size_kb": 0
+      },
+      "expected_results": {
+        "modal_load_time_ms_max": 500,
+        "time_to_title_visible_ms_max": 200,
+        "task_create_time_ms_max": 3000,
+        "title_visible_without_scroll": true,
+        "due_date_visible_without_scroll": true,
+        "success": true
+      },
+      "pass_criteria": {
+        "modal_opens": true,
+        "all_fields_accessible": true,
+        "task_created_successfully": true,
+        "no_errors": true
+      }
+    },
+    {
+      "test_id": "TC002_heavy_data",
+      "description": "Task creation with many tags and large attachments to trigger lazy loading",
+      "input": {
+        "task_title": "Launch new product feature",
+        "task_description": "Coordinate cross-functional launch for the new analytics dashboard",
+        "assignee": "sarah.smith@company.com",
+        "due_date": "2025-12-01",
+        "priority": "critical",
+        "tags": ["product", "launch", "analytics", "dashboard", "cross-functional", "marketing", "engineering", "design", "qa", "docs"],
+        "attachments": ["requirements.pdf", "mockups.zip", "data_model.xlsx"]
+      },
+      "environment": {
+        "network_latency_ms": 100,
+        "tag_count": 50,
+        "member_count": 25,
+        "attachment_size_kb": 5000
+      },
+      "expected_results": {
+        "modal_load_time_ms_max": 800,
+        "time_to_title_visible_ms_max": 300,
+        "task_create_time_ms_max": 5000,
+        "title_visible_without_scroll": true,
+        "due_date_visible_without_scroll": true,
+        "lazy_loading_triggered": true,
+        "success": true
+      },
+      "pass_criteria": {
+        "modal_opens": true,
+        "tags_loaded_after_step1": true,
+        "attachments_loaded_after_step2": true,
+        "task_created_successfully": true,
+        "no_errors": true
+      }
+    },
+    {
+      "test_id": "TC003_slow_network",
+      "description": "Simulate slow network to verify perceived performance improvements",
+      "input": {
+        "task_title": "Update security protocols",
+        "task_description": "Review and update company-wide security protocols",
+        "assignee": "mike.jones@company.com",
+        "due_date": "2025-11-20",
+        "priority": "medium",
+        "tags": ["security", "compliance"],
+        "attachments": ["security_audit.pdf"]
+      },
+      "environment": {
+        "network_latency_ms": 500,
+        "tag_count": 30,
+        "member_count": 15,
+        "attachment_size_kb": 2000
+      },
+      "expected_results": {
+        "modal_load_time_ms_max": 1500,
+        "time_to_title_visible_ms_max": 800,
+        "task_create_time_ms_max": 8000,
+        "title_visible_without_scroll": true,
+        "progressive_loading_visible": true,
+        "success": true
+      },
+      "pass_criteria": {
+        "modal_opens": true,
+        "user_can_start_typing_immediately": true,
+        "loading_indicators_shown": true,
+        "task_created_successfully": true,
+        "no_timeout_errors": true
+      }
+    },
+    {
+      "test_id": "TC004_malformed_input",
+      "description": "Handle missing required fields and invalid data gracefully",
+      "input": {
+        "task_title": "",
+        "task_description": "This task has no title and invalid due date",
+        "assignee": "invalid-email",
+        "due_date": "not-a-date",
+        "priority": "ultra-mega-high",
+        "tags": [12345, null, "valid-tag"],
+        "attachments": ["file_without_extension"]
+      },
+      "environment": {
+        "network_latency_ms": 50,
+        "tag_count": 10,
+        "member_count": 5,
+        "attachment_size_kb": 100
+      },
+      "expected_results": {
+        "modal_load_time_ms_max": 500,
+        "validation_errors_shown": true,
+        "title_error_visible": true,
+        "due_date_error_visible": true,
+        "assignee_error_visible": true,
+        "success": false
+      },
+      "pass_criteria": {
+        "modal_opens": true,
+        "validation_prevents_submission": true,
+        "error_messages_clear": true,
+        "no_crashes": true,
+        "user_can_correct_errors": true
+      }
+    },
+    {
+      "test_id": "TC005_accessibility",
+      "description": "Verify keyboard navigation and screen-reader compatibility",
+      "input": {
+        "task_title": "Accessibility audit",
+        "task_description": "Conduct full accessibility audit of the platform",
+        "assignee": "emily.chen@company.com",
+        "due_date": "2025-11-25",
+        "priority": "high",
+        "tags": ["accessibility", "a11y", "compliance"],
+        "attachments": []
+      },
+      "environment": {
+        "network_latency_ms": 50,
+        "tag_count": 10,
+        "member_count": 5,
+        "attachment_size_kb": 0,
+        "keyboard_only": true,
+        "screen_reader_mode": true
+      },
+      "expected_results": {
+        "modal_load_time_ms_max": 500,
+        "all_fields_keyboard_accessible": true,
+        "tab_order_logical": true,
+        "aria_labels_present": true,
+        "focus_indicators_visible": true,
+        "success": true
+      },
+      "pass_criteria": {
+        "modal_opens_via_keyboard": true,
+        "can_navigate_all_fields_via_tab": true,
+        "can_submit_via_enter": true,
+        "can_cancel_via_escape": true,
+        "aria_live_regions_announce_changes": true,
+        "task_created_successfully": true
+      }
+    }
+  ],
+  "performance_thresholds": {
+    "modal_load_improvement_percent": 30,
+    "task_create_improvement_percent": 20,
+    "first_field_visibility_percent": 95,
+    "acceptable_error_rate_percent": 5
+  },
+  "test_configuration": {
+    "repeat_count": 3,
+    "warmup_runs": 1,
+    "screenshot_on_failure": true,
+    "capture_network_logs": true,
+    "viewport_width": 1920,
+    "viewport_height": 1080
+  }
+}

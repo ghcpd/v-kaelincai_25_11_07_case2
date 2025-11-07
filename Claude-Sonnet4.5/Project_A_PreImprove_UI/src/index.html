@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Pre-Improvement</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Management Platform</h1>
+            <p class="version">Pre-Improvement Version</p>
+        </header>
+
+        <main>
+            <button id="openModalBtn" class="btn-primary">Create New Task</button>
+            
+            <div id="taskList" class="task-list">
+                <h2>Existing Tasks</h2>
+                <div id="tasks"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal - Eager Loading, Poor Field Order -->
+    <div id="taskModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Task</h2>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            
+            <form id="taskForm" class="task-form">
+                <!-- POOR UX: Less important fields first, requiring scroll to reach title -->
+                
+                <!-- Tags Section - Loaded Eagerly -->
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <div id="tagsContainer" class="tags-container loading">
+                        <div class="spinner"></div>
+                        <p>Loading all tags...</p>
+                    </div>
+                    <select id="tags" name="tags" multiple class="form-control" style="display: none;">
+                    </select>
+                </div>
+
+                <!-- Team Members Section - Loaded Eagerly -->
+                <div class="form-group">
+                    <label for="assignee">Assign To</label>
+                    <div id="membersContainer" class="members-container loading">
+                        <div class="spinner"></div>
+                        <p>Loading team members...</p>
+                    </div>
+                    <select id="assignee" name="assignee" class="form-control" style="display: none;">
+                        <option value="">Select assignee...</option>
+                    </select>
+                </div>
+
+                <!-- Attachments Section - Loaded Eagerly -->
+                <div class="form-group">
+                    <label for="attachments">Attachments</label>
+                    <div id="attachmentsContainer" class="attachments-container loading">
+                        <div class="spinner"></div>
+                        <p>Loading attachment options...</p>
+                    </div>
+                    <div id="attachmentsList" style="display: none;">
+                        <input type="file" id="attachments" name="attachments" multiple class="form-control">
+                        <div id="attachmentPreviews"></div>
+                    </div>
+                </div>
+
+                <!-- Priority - Mid-form -->
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority" class="form-control">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+
+                <!-- POOR UX: Most important fields are at the bottom, requiring scroll -->
+                <div class="form-group">
+                    <label for="taskTitle">Task Title *</label>
+                    <input type="text" id="taskTitle" name="taskTitle" class="form-control" required>
+                    <span class="error-message" id="titleError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="dueDate">Due Date *</label>
+                    <input type="date" id="dueDate" name="dueDate" class="form-control" required>
+                    <span class="error-message" id="dueDateError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="taskDescription">Description</label>
+                    <textarea id="taskDescription" name="taskDescription" class="form-control" rows="4"></textarea>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn-primary" id="submitBtn" disabled>Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="modal.js"></script>
+</body>
+</html>

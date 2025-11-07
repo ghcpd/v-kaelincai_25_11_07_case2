@@ -1,0 +1,32 @@
+{
+  "tags": [
+    {"id": "tag-0", "name": "urgent"},
+    {"id": "tag-1", "name": "bug"},
+    {"id": "tag-2", "name": "feature"},
+    {"id": "tag-3", "name": "documentation"},
+    {"id": "tag-4", "name": "testing"},
+    {"id": "tag-5", "name": "design"},
+    {"id": "tag-6", "name": "backend"},
+    {"id": "tag-7", "name": "frontend"},
+    {"id": "tag-8", "name": "database"},
+    {"id": "tag-9", "name": "security"}
+  ],
+  "members": [
+    {"id": 0, "name": "John Doe", "email": "john.doe@company.com"},
+    {"id": 1, "name": "Sarah Smith", "email": "sarah.smith@company.com"},
+    {"id": 2, "name": "Mike Jones", "email": "mike.jones@company.com"},
+    {"id": 3, "name": "Emily Chen", "email": "emily.chen@company.com"},
+    {"id": 4, "name": "David Brown", "email": "david.brown@company.com"}
+  ],
+  "sample_attachments": [
+    {"name": "requirements.pdf", "size_kb": 250},
+    {"name": "mockups.zip", "size_kb": 1500},
+    {"name": "data_model.xlsx", "size_kb": 180}
+  ],
+  "expected_improvements": {
+    "modal_load_time_reduction_percent": 60,
+    "time_to_first_input_reduction_percent": 80,
+    "wizard_improves_completion_rate": true,
+    "lazy_loading_reduces_initial_payload": true
+  }
+}
