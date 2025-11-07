@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management Platform - Post-Improvement</title>
+    <link rel="stylesheet" href="styles.improved.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Management Platform</h1>
+            <p class="subtitle">Post-Improvement Version (Wizard + Lazy Loading)</p>
+        </header>
+        
+        <main>
+            <div class="dashboard">
+                <div class="task-list">
+                    <div class="task-list-header">
+                        <h2>Tasks</h2>
+                        <button id="createTaskBtn" class="btn btn-primary">Create New Task</button>
+                    </div>
+                    <div class="task-items">
+                        <div class="task-item">
+                            <h3>Sample Task 1</h3>
+                            <p>This is a sample task for demonstration</p>
+                            <span class="task-meta">Due: Nov 15, 2025 | Assigned to: John Doe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Improved wizard modal - lazy loads heavy modules and prioritizes title/due date -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Task</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="wizard">
+                    <div class="wizard-step" id="step-1">
+                        <h3>Step 1 - Basic Details</h3>
+                        <div class="form-group">
+                            <label for="title">Task Title: *</label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dueDate">Due Date: *</label>
+                            <input type="date" id="dueDate" name="dueDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="wizard-actions">
+                            <button id="nextToAssignee" class="btn btn-primary">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="wizard-step" id="step-2" style="display:none">
+                        <h3>Step 2 - Assignment</h3>
+                        <div class="form-group">
+                            <label for="assignee">Assignee:</label>
+                            <select id="assignee" name="assignee">
+                                <option value="">Select Assignee...</option>
+                            </select>
+                        </div>
+                        <div class="wizard-actions">
+                            <button id="backToDetails" class="btn btn-secondary">Back</button>
+                            <button id="nextToTags" class="btn btn-primary">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="wizard-step" id="step-3" style="display:none">
+                        <h3>Step 3 - Tags & Attachments</h3>
+                        <div class="form-group">
+                            <label for="tags">Tags:</label>
+                            <div id="tagsContainer" class="tags-container">
+                                <!-- Lazy loaded tags -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="attachments">Attachments:</label>
+                            <div id="attachmentsContainer" class="attachments-container">
+                                <p class="helper">Add attachments only when needed to avoid slowing down task creation.</p>
+                            </div>
+                            <button type="button" id="addAttachment" class="btn btn-secondary">Add Attachment</button>
+                        </div>
+                        <div class="wizard-actions">
+                            <button id="backToAssign" class="btn btn-secondary">Back</button>
+                            <button id="submitTask" class="btn btn-primary">Create Task</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading indicator for lazy loads -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p id="loadingText">Loading...</p>
+    </div>
+
+    <script src="wizard.js"></script>
+</body>
+</html>

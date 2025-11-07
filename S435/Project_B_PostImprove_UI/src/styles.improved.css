@@ -1,0 +1,29 @@
+/* Improved styles for wizard UI */
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f4f6f8; color: #222; }
+.container { max-width: 1000px; margin: 20px auto; padding: 20px; }
+.subtitle { background: #e9f7ef; padding: 8px; border-radius: 6px; color: #216e3a; font-weight: 600; }
+.dashboard { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 6px 18px rgba(23,40,65,0.06); }
+.task-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.btn { padding: 10px 18px; border-radius: 6px; border: none; cursor: pointer; }
+.btn-primary { background: #2e86de; color: white; }
+.btn-secondary { background: #ebeff2; color: #2b2b2b; }
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: flex-start; padding-top: 40px; }
+.modal-content { width: 540px; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 12px 38px rgba(23,40,65,0.08); }
+.modal-header { background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%); padding: 18px; color: white; display: flex; justify-content: space-between; align-items: center; }
+.modal-body { padding: 20px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-weight: 600; margin-bottom: 6px; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid #dfe6ee; }
+.tags-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; border: 1px solid #f0f3f7; border-radius: 6px; min-height: 60px; }
+.tag-item { padding: 6px 10px; background: #f0f7ff; border-radius: 20px; cursor: pointer; color: #135e96; }
+.tag-item.selected { background: #dbeeff; }
+.attachments-container { padding: 8px; border: 1px dashed #e8edf2; border-radius: 6px; min-height: 60px; }
+.wizard-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+.loading-overlay { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.85); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; }
+.loading-overlay.show { display: flex; }
+.loading-spinner { width: 40px; height: 40px; border: 5px solid #e9eef4; border-top: 5px solid #2e86de; border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.wizard-step { transition: opacity 0.2s ease; }
+// accessibility
+[tabindex]:focus, button:focus, input:focus { outline: 3px solid rgba(46,134,222,0.18); }
