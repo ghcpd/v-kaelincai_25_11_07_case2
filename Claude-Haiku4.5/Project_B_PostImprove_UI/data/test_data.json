@@ -1,0 +1,202 @@
+{
+  "test_cases": [
+    {
+      "test_id": "normal_case",
+      "description": "Typical user creating a basic task with title, assignee, and due date",
+      "input_payload": {
+        "title": "Complete project documentation",
+        "assignee": "john.doe@company.com",
+        "due_date": "2025-11-15",
+        "priority": "medium",
+        "tags": ["documentation", "project"],
+        "description": "Create comprehensive documentation for the new feature"
+      },
+      "simulated_environment": {
+        "network_latency_ms": 50,
+        "dataset_size": "small",
+        "device_type": "desktop",
+        "browser": "chrome"
+      },
+      "expected_results": {
+        "modal_load_ms": 200,
+        "time_to_title_visible_ms": 100,
+        "task_create_ms": 5000,
+        "title_visible_without_scroll": true,
+        "due_date_visible_without_scroll": true,
+        "accessibility_score": 0.85
+      },
+      "pass_criteria": {
+        "modal_load_ms_max": 300,
+        "time_to_title_visible_ms_max": 150,
+        "task_create_ms_max": 8000,
+        "required_fields_visible": true,
+        "accessibility_score_min": 0.8
+      }
+    },
+    {
+      "test_id": "heavy_data_case",
+      "description": "User creating a task with many tags and large attachments to trigger lazy loading",
+      "input_payload": {
+        "title": "Large project coordination",
+        "assignee": "team.lead@company.com",
+        "due_date": "2025-12-01",
+        "priority": "high",
+        "tags": ["urgent", "coordination", "large-project", "milestone", "Q4", "planning", "resources", "budget", "stakeholders", "deliverables", "timeline", "dependencies"],
+        "description": "Coordinate multiple teams for Q4 deliverables",
+        "attachments": [
+          {"name": "project_plan.pdf", "size": 5242880},
+          {"name": "budget_analysis.xlsx", "size": 2097152},
+          {"name": "timeline.png", "size": 1048576},
+          {"name": "requirements.docx", "size": 3145728}
+        ]
+      },
+      "simulated_environment": {
+        "network_latency_ms": 100,
+        "dataset_size": "large",
+        "device_type": "desktop",
+        "browser": "firefox"
+      },
+      "expected_results": {
+        "modal_load_ms": 800,
+        "time_to_title_visible_ms": 150,
+        "task_create_ms": 8000,
+        "tags_lazy_loaded": true,
+        "attachments_lazy_loaded": true,
+        "title_visible_without_scroll": true,
+        "accessibility_score": 0.82
+      },
+      "pass_criteria": {
+        "modal_load_ms_max": 1200,
+        "time_to_title_visible_ms_max": 200,
+        "task_create_ms_max": 12000,
+        "lazy_loading_functional": true,
+        "accessibility_score_min": 0.8
+      }
+    },
+    {
+      "test_id": "slow_network_case",
+      "description": "Simulate high latency to verify perceived performance improvements",
+      "input_payload": {
+        "title": "Remote team sync",
+        "assignee": "remote.worker@company.com",
+        "due_date": "2025-11-20",
+        "priority": "medium",
+        "tags": ["remote", "sync", "communication"],
+        "description": "Weekly sync meeting with remote team members"
+      },
+      "simulated_environment": {
+        "network_latency_ms": 500,
+        "dataset_size": "medium",
+        "device_type": "mobile",
+        "browser": "safari"
+      },
+      "expected_results": {
+        "modal_load_ms": 1000,
+        "time_to_title_visible_ms": 600,
+        "task_create_ms": 10000,
+        "progressive_loading": true,
+        "spinner_shown": true,
+        "title_visible_without_scroll": true,
+        "accessibility_score": 0.83
+      },
+      "pass_criteria": {
+        "modal_load_ms_max": 1500,
+        "time_to_title_visible_ms_max": 800,
+        "task_create_ms_max": 15000,
+        "progressive_loading_functional": true,
+        "accessibility_score_min": 0.8
+      }
+    },
+    {
+      "test_id": "malformed_inputs_case",
+      "description": "Test handling of missing required fields and malformed data",
+      "input_payload": {
+        "title": "",
+        "assignee": "invalid-email",
+        "due_date": "invalid-date",
+        "priority": "invalid-priority",
+        "tags": ["way", "too", "many", "tags", "that", "exceed", "reasonable", "limits", "and", "should", "be", "handled", "gracefully", "by", "the", "system"],
+        "description": "This is a very long description that exceeds normal limits to test how the system handles oversized text input and whether it gracefully truncates or provides appropriate validation messages for users who enter excessive amounts of text in the description field which should be handled properly by the UI validation system."
+      },
+      "simulated_environment": {
+        "network_latency_ms": 75,
+        "dataset_size": "small",
+        "device_type": "desktop",
+        "browser": "edge"
+      },
+      "expected_results": {
+        "modal_load_ms": 250,
+        "validation_errors_shown": true,
+        "form_submission_blocked": true,
+        "error_messages_accessible": true,
+        "field_highlighting": true,
+        "accessibility_score": 0.88
+      },
+      "pass_criteria": {
+        "modal_load_ms_max": 400,
+        "validation_functional": true,
+        "error_handling_proper": true,
+        "accessibility_score_min": 0.85
+      }
+    },
+    {
+      "test_id": "accessibility_keyboard_case",
+      "description": "Test keyboard navigation and screen reader compatibility",
+      "input_payload": {
+        "title": "Accessibility audit task",
+        "assignee": "a11y.expert@company.com",
+        "due_date": "2025-11-25",
+        "priority": "high",
+        "tags": ["accessibility", "audit", "compliance"],
+        "description": "Conduct comprehensive accessibility audit of the application"
+      },
+      "simulated_environment": {
+        "network_latency_ms": 60,
+        "dataset_size": "medium",
+        "device_type": "desktop",
+        "browser": "chrome",
+        "accessibility_mode": true,
+        "keyboard_only": true
+      },
+      "expected_results": {
+        "modal_load_ms": 220,
+        "keyboard_navigation_functional": true,
+        "tab_order_logical": true,
+        "aria_labels_present": true,
+        "focus_indicators_visible": true,
+        "screen_reader_compatible": true,
+        "accessibility_score": 0.95
+      },
+      "pass_criteria": {
+        "modal_load_ms_max": 350,
+        "keyboard_navigation_score_min": 0.9,
+        "aria_compliance_score_min": 0.9,
+        "accessibility_score_min": 0.9
+      }
+    }
+  ],
+  "shared_data": {
+    "available_assignees": [
+      {"email": "john.doe@company.com", "name": "John Doe", "department": "Engineering"},
+      {"email": "jane.smith@company.com", "name": "Jane Smith", "department": "Design"},
+      {"email": "team.lead@company.com", "name": "Alex Johnson", "department": "Management"},
+      {"email": "remote.worker@company.com", "name": "Sarah Chen", "department": "Engineering"},
+      {"email": "a11y.expert@company.com", "name": "Michael Torres", "department": "QA"}
+    ],
+    "available_tags": [
+      "urgent", "documentation", "project", "coordination", "large-project", 
+      "milestone", "Q4", "planning", "resources", "budget", "stakeholders", 
+      "deliverables", "timeline", "dependencies", "remote", "sync", 
+      "communication", "accessibility", "audit", "compliance", "review", 
+      "testing", "deployment", "maintenance", "bug-fix", "feature", 
+      "enhancement", "security", "performance", "ui", "ux"
+    ],
+    "priority_levels": ["low", "medium", "high", "critical"],
+    "performance_thresholds": {
+      "modal_load_improvement_percent": 30,
+      "task_create_improvement_percent": 20,
+      "first_field_visibility_percent": 95,
+      "accessibility_score_min": 0.8
+    }
+  }
+}

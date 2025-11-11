@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Post-Improvement</title>
+    <link rel="stylesheet" href="styles.improved.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Management Platform - Improved Version</h1>
+            <p>Enhanced with step-by-step wizard, lazy loading, and prioritized field layout</p>
+        </header>
+        
+        <main>
+            <div class="task-list">
+                <div class="task-header">
+                    <h2>My Tasks</h2>
+                    <button id="createTaskBtn" class="btn-primary">Create New Task</button>
+                </div>
+                <div class="tasks">
+                    <div class="task-item">
+                        <h3>Sample Task 1</h3>
+                        <p>Due: 2025-11-10</p>
+                        <span class="status">In Progress</span>
+                    </div>
+                    <div class="task-item">
+                        <h3>Sample Task 2</h3>
+                        <p>Due: 2025-11-12</p>
+                        <span class="status">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="wizard-progress">
+                    <div class="step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Task Details</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Assignment</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Additional Info</span>
+                    </div>
+                </div>
+                <button id="closeModal" class="close-btn" aria-label="Close modal">&times;</button>
+            </div>
+            
+            <form id="taskForm" class="task-form">
+                <!-- Minimal loading indicator -->
+                <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                    <div class="spinner-small"></div>
+                    <p>Loading...</p>
+                </div>
+                
+                <!-- Step 1: Essential Task Details (immediately visible) -->
+                <div id="step1" class="wizard-step active">
+                    <div class="step-header">
+                        <h2>Task Details</h2>
+                        <p>Let's start with the essential information</p>
+                    </div>
+                    
+                    <div class="form-content">
+                        <div class="form-group">
+                            <label for="title">Task Title: <span class="required">*</span></label>
+                            <input type="text" id="title" name="title" required 
+                                   aria-describedby="title-help" placeholder="What needs to be done?">
+                            <small id="title-help" class="help-text">Be specific and descriptive</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dueDate">Due Date: <span class="required">*</span></label>
+                            <input type="date" id="dueDate" name="dueDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="priority">Priority: <span class="required">*</span></label>
+                            <select id="priority" name="priority" required>
+                                <option value="">Select priority...</option>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" rows="3" 
+                                     placeholder="Provide additional context or requirements"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Team Assignment (lazy loaded) -->
+                <div id="step2" class="wizard-step">
+                    <div class="step-header">
+                        <h2>Team Assignment</h2>
+                        <p>Who should work on this task?</p>
+                    </div>
+                    
+                    <div class="form-content">
+                        <div id="assignmentLoading" class="lazy-loading">
+                            <div class="spinner-small"></div>
+                            <span>Loading team members...</span>
+                        </div>
+                        
+                        <div id="assignmentContent" class="lazy-content" style="display: none;">
+                            <div class="form-group">
+                                <label for="assignee">Assignee:</label>
+                                <select id="assignee" name="assignee">
+                                    <option value="">Select assignee...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="department">Department:</label>
+                                <select id="department" name="department">
+                                    <option value="">Select department...</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Watchers:</label>
+                                <div id="watchersContainer" class="watchers-container">
+                                    <!-- Dynamically populated -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Additional Information (lazy loaded) -->
+                <div id="step3" class="wizard-step">
+                    <div class="step-header">
+                        <h2>Additional Information</h2>
+                        <p>Tags, attachments, and other details</p>
+                    </div>
+                    
+                    <div class="form-content">
+                        <div id="additionalLoading" class="lazy-loading">
+                            <div class="spinner-small"></div>
+                            <span>Loading additional options...</span>
+                        </div>
+                        
+                        <div id="additionalContent" class="lazy-content" style="display: none;">
+                            <div class="form-group">
+                                <label>Tags:</label>
+                                <div id="tagsContainer" class="tags-container">
+                                    <!-- Dynamically populated -->
+                                </div>
+                                <div class="tag-input-group">
+                                    <input type="text" id="customTag" placeholder="Add custom tag...">
+                                    <button type="button" id="addTagBtn" class="btn-sm">Add</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="projectCategory">Project Category:</label>
+                                <select id="projectCategory" name="projectCategory">
+                                    <option value="">Select a category...</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="estimatedHours">Estimated Hours:</label>
+                                <input type="number" id="estimatedHours" name="estimatedHours" 
+                                       min="0" step="0.5" placeholder="0.5">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="attachments">File Attachments:</label>
+                                <div class="file-upload-zone" id="fileUploadZone">
+                                    <input type="file" id="attachments" name="attachments" multiple 
+                                           style="display: none;">
+                                    <div class="upload-placeholder">
+                                        <span class="upload-icon">📁</span>
+                                        <p>Click to select files or drag and drop</p>
+                                        <small>Supported: PDF, DOC, XLS, PNG, JPG (max 10MB each)</small>
+                                    </div>
+                                    <div id="selectedFiles" class="selected-files"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wizard Navigation -->
+                <div class="wizard-actions">
+                    <button type="button" id="prevBtn" class="btn-secondary" disabled>Previous</button>
+                    <div class="action-group">
+                        <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
+                        <button type="button" id="nextBtn" class="btn-primary">Next</button>
+                        <button type="submit" id="submitBtn" class="btn-primary" style="display: none;">Create Task</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="wizard.js"></script>
+</body>
+</html>
