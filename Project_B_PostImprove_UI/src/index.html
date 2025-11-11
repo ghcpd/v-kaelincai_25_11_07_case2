@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Create Task (Post-Improvement)</title>
+    <link rel="stylesheet" href="styles.improved.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Management Platform</h1>
+            <button id="createTaskBtn" class="btn-primary">Create Task</button>
+        </header>
+        
+        <main>
+            <div id="taskList" class="task-list">
+                <p>Click "Create Task" to open the wizard</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Wizard Modal -->
+    <div id="taskModal" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Create New Task</h2>
+                <span class="close" aria-label="Close modal">&times;</span>
+            </div>
+            
+            <!-- Wizard Steps Indicator -->
+            <div class="wizard-steps" role="tablist" aria-label="Task creation steps">
+                <div class="step-indicator active" data-step="1" role="tab" aria-selected="true" aria-label="Step 1: Task Details">
+                    <span class="step-number">1</span>
+                    <span class="step-label">Details</span>
+                </div>
+                <div class="step-indicator" data-step="2" role="tab" aria-selected="false" aria-label="Step 2: Assignment">
+                    <span class="step-number">2</span>
+                    <span class="step-label">Assign</span>
+                </div>
+                <div class="step-indicator" data-step="3" role="tab" aria-selected="false" aria-label="Step 3: Attachments">
+                    <span class="step-number">3</span>
+                    <span class="step-label">Attachments</span>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <form id="taskForm">
+                    <!-- Step 1: Task Details (Important fields first, visible immediately) -->
+                    <div class="wizard-step active" data-step="1" role="tabpanel">
+                        <div class="form-section">
+                            <label for="taskTitle">Task Title *</label>
+                            <input type="text" id="taskTitle" name="title" required 
+                                   aria-required="true" aria-label="Task title">
+                        </div>
+
+                        <div class="form-section">
+                            <label for="dueDate">Due Date *</label>
+                            <input type="date" id="dueDate" name="dueDate" required 
+                                   aria-required="true" aria-label="Due date">
+                        </div>
+
+                        <div class="form-section">
+                            <label for="priority">Priority</label>
+                            <select id="priority" name="priority" aria-label="Task priority">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="taskDescription">Description</label>
+                            <textarea id="taskDescription" name="description" rows="4" 
+                                      aria-label="Task description"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Assignment (Lazy loaded) -->
+                    <div class="wizard-step" data-step="2" role="tabpanel">
+                        <div class="form-section">
+                            <label>Tags</label>
+                            <div id="tagsContainer" class="tags-container">
+                                <div class="loading">Tags will load when you reach this step...</div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <label>Assign Members</label>
+                            <div id="membersContainer" class="members-container">
+                                <div class="loading">Members will load when you reach this step...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Attachments (Lazy loaded) -->
+                    <div class="wizard-step" data-step="3" role="tabpanel">
+                        <div class="form-section">
+                            <label>Attachments</label>
+                            <div id="attachmentsContainer" class="attachments-container">
+                                <div class="loading">Attachments will load when you reach this step...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="prevBtn" style="display: none;">Previous</button>
+                        <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="button" class="btn-primary" id="nextBtn">Next</button>
+                        <button type="submit" class="btn-primary" id="submitBtn" style="display: none;">Create Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load test data from server
+        fetch('/test-data')
+            .then(response => response.json())
+            .then(data => {
+                window.TEST_DATA = data;
+            })
+            .catch(err => {
+                console.log('Test data not available, using defaults');
+            });
+    </script>
+    <script src="wizard.js"></script>
+</body>
+</html>
+
