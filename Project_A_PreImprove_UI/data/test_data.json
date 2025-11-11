@@ -1,0 +1,132 @@
+{
+  "test_cases": [
+    {
+      "id": "normal_case",
+      "description": "Typical user creating a task with title, assignee, due date",
+      "input": {
+        "title": "Implement user authentication",
+        "description": "Add login and registration functionality",
+        "dueDate": "2024-12-31",
+        "priority": "high"
+      },
+      "environment": {
+        "network_latency_ms": 100,
+        "tags_count": 10,
+        "members_count": 8,
+        "attachments_count": 5
+      },
+      "expected_results": {
+        "modal_load_ms_max": 3000,
+        "time_to_title_visible_ms_max": 3000,
+        "task_create_ms_max": 5000,
+        "first_field_visible": false
+      },
+      "pass_criteria": {
+        "modal_load_ms": "< 3000",
+        "task_create_ms": "< 5000"
+      }
+    },
+    {
+      "id": "heavy_data_case",
+      "description": "Many tags and large attachments to trigger lazy loading",
+      "input": {
+        "title": "Refactor codebase",
+        "description": "Large scale refactoring project",
+        "dueDate": "2025-01-15",
+        "priority": "medium"
+      },
+      "environment": {
+        "network_latency_ms": 200,
+        "tags_count": 50,
+        "members_count": 30,
+        "attachments_count": 25
+      },
+      "expected_results": {
+        "modal_load_ms_max": 5000,
+        "time_to_title_visible_ms_max": 5000,
+        "task_create_ms_max": 8000,
+        "first_field_visible": false
+      },
+      "pass_criteria": {
+        "modal_load_ms": "< 5000",
+        "task_create_ms": "< 8000"
+      }
+    },
+    {
+      "id": "slow_network_case",
+      "description": "Simulate high latency to verify perceived performance",
+      "input": {
+        "title": "Update documentation",
+        "description": "Update API documentation",
+        "dueDate": "2024-12-20",
+        "priority": "low"
+      },
+      "environment": {
+        "network_latency_ms": 1000,
+        "tags_count": 15,
+        "members_count": 10,
+        "attachments_count": 8
+      },
+      "expected_results": {
+        "modal_load_ms_max": 8000,
+        "time_to_title_visible_ms_max": 8000,
+        "task_create_ms_max": 12000,
+        "first_field_visible": false
+      },
+      "pass_criteria": {
+        "modal_load_ms": "< 8000",
+        "task_create_ms": "< 12000"
+      }
+    },
+    {
+      "id": "malformed_inputs_case",
+      "description": "Missing required fields, non-string values, overly long text",
+      "input": {
+        "title": "",
+        "description": 12345,
+        "dueDate": null,
+        "priority": "invalid"
+      },
+      "environment": {
+        "network_latency_ms": 100,
+        "tags_count": 10,
+        "members_count": 8,
+        "attachments_count": 5
+      },
+      "expected_results": {
+        "validation_error": true,
+        "error_message_contains": ["required", "title", "due date"]
+      },
+      "pass_criteria": {
+        "validation_error": true,
+        "error_handled_gracefully": true
+      }
+    },
+    {
+      "id": "accessibility_case",
+      "description": "Keyboard navigation, screen-reader friendly labels",
+      "input": {
+        "title": "Accessibility audit",
+        "description": "Review and improve accessibility",
+        "dueDate": "2024-12-25",
+        "priority": "high"
+      },
+      "environment": {
+        "network_latency_ms": 100,
+        "tags_count": 10,
+        "members_count": 8,
+        "attachments_count": 5
+      },
+      "expected_results": {
+        "keyboard_navigable": true,
+        "aria_labels_present": true,
+        "focus_visible": true
+      },
+      "pass_criteria": {
+        "keyboard_navigable": true,
+        "aria_labels_present": true
+      }
+    }
+  ]
+}
+
