@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Pre-Improvement - Create Task Modal (Eager)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <button id="openModal">Create Task</button>
+
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <h2>Create Task</h2>
+        <div id="loadingStatus">Loading...</div>
+        <form id="createTaskForm">
+          <!-- Suboptimal order: Meta fields low in the form -->
+          <div class="field" id="assigneesField">
+            <label for="assignees">Assignees</label>
+            <select id="assignees" multiple></select>
+          </div>
+
+          <div class="field" id="tagsField">
+            <label for="tags">Tags</label>
+            <div id="tagsContainer"></div>
+          </div>
+
+          <div class="field" id="attachmentsField">
+            <label for="attachments">Attachments</label>
+            <div id="attachmentsContainer"></div>
+          </div>
+
+          <div class="field" id="titleField">
+            <label for="title">Title</label>
+            <input id="title" type="text" />
+          </div>
+
+          <div class="field" id="dueDateField">
+            <label for="dueDate">Due Date</label>
+            <input id="dueDate" type="date" />
+          </div>
+
+          <button id="createBtn" type="button">Create</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="modal.js"></script>
+  </body>
+  </html>

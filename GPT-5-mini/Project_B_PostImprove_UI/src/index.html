@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Post-Improvement - Create Task Wizard (Lazy)</title>
+    <link rel="stylesheet" href="styles.improved.css" />
+  </head>
+  <body>
+    <button id="openWizard">Create Task</button>
+    <div id="wizard" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <h2>Create Task - Step <span id="stepNum">1</span>/3</h2>
+        <div id="stepContainer">
+          <!-- Steps injected here -->
+        </div>
+        <div class="wizard-actions">
+          <button id="prevBtn" disabled>Back</button>
+          <button id="nextBtn">Next</button>
+        </div>
+      </div>
+    </div>
+    <script src="wizard.js"></script>
+  </body>
+  </html>
