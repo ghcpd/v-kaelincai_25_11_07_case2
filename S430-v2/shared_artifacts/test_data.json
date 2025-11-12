@@ -1,0 +1,37 @@
+[
+  {
+    "id": "normal",
+    "description": "Typical user creates a task",
+    "input": {"title":"Buy milk","due":"2025-12-01","assignee":"Alice"},
+    "env": {"networkLatency": 50, "tagCount": 10, "attachmentCount": 2},
+    "expected": {"modal_load_ms": 3000, "title_visible": true, "task_success": true}
+  },
+  {
+    "id": "heavy_data",
+    "description": "Many tags & attachments",
+    "input": {"title":"Release v2","due":"2025-12-24","assignee":"Bob"},
+    "env": {"networkLatency": 1000, "tagCount": 200, "attachmentCount": 25},
+    "expected": {"modal_load_ms": 10000, "title_visible": false, "task_success": true}
+  },
+  {
+    "id": "slow_network",
+    "description": "High latency network",
+    "input": {"title":"Sync DB","due":"2025-12-10","assignee":"Clara"},
+    "env": {"networkLatency": 3000, "tagCount": 20, "attachmentCount": 5},
+    "expected": {"modal_load_ms": 15000, "title_visible": false, "task_success": true}
+  },
+  {
+    "id": "malformed",
+    "description": "Missing title",
+    "input": {"title":"","due":"2025-11-01"},
+    "env": {"networkLatency": 50, "tagCount": 5, "attachmentCount": 1},
+    "expected": {"task_success": false}
+  },
+  {
+    "id": "accessibility",
+    "description": "Keyboard navigation & screen reader labels",
+    "input": {"title":"Accessibility test","due":"2025-11-15","assignee":"Dev"},
+    "env": {"networkLatency": 20, "tagCount": 5, "attachmentCount": 1},
+    "expected": {"title_visible": true, "a11y": true}
+  }
+]

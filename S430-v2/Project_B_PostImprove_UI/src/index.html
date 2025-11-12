@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Task Manager — Post-Improvement</title>
+  <link rel="stylesheet" href="styles.improved.css">
+</head>
+<body>
+  <main>
+    <h1>Project B — Create Task (Post)</h1>
+    <button id="openModal">Create Task</button>
+  </main>
+
+  <div id="wizard" class="hidden" role="dialog" aria-labelledby="wizardTitle">
+    <div class="modal-content">
+      <h2 id="wizardTitle">Create Task — Step <span id="stepNo">1</span></h2>
+      <div id="steps">
+        <section data-step="1" class="step">
+          <label for="title">Title</label>
+          <input id="title" type="text">
+          <label for="due">Due date</label>
+          <input id="due" type="date">
+          <button id="next1">Next</button>
+        </section>
+
+        <section data-step="2" class="step hidden">
+          <h3>Assignee</h3>
+          <div id="memberList">Loading members...</div>
+          <button id="prev2">Back</button>
+          <button id="next2">Next</button>
+        </section>
+
+        <section data-step="3" class="step hidden">
+          <h3>Attachments & Tags (lazy)</h3>
+          <div id="tagList">Not loaded</div>
+          <div id="attachList">Not loaded</div>
+          <button id="prev3">Back</button>
+          <button id="finish">Create</button>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="wizard.js"></script>
+</body>
+</html>

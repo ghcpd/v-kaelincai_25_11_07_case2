@@ -1,0 +1,7 @@
+[
+  {"id":"normal","expect_modal_ms_threshold":2000, "title_visible": true},
+  {"id":"heavy_data","expect_modal_ms_threshold":5000, "title_visible": true},
+  {"id":"slow_network","expect_modal_ms_threshold":8000, "title_visible": true},
+  {"id":"malformed","expect_task_success": false, "title_visible": true},
+  {"id":"accessibility","title_visible": true}
+]

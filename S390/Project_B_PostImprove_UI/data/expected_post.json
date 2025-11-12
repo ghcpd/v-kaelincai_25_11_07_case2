@@ -1,0 +1,6 @@
+{
+  "lazy": ["tags","attachments"],
+  "flow": "wizard",
+  "steps": ["meta","assign","attachments"],
+  "priority_fields": ["title","due"]
+}
