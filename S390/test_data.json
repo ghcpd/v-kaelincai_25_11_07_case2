@@ -1,0 +1,37 @@
+[
+  {
+    "id": "case_normal",
+    "description": "Normal case - typical user creating a task with title, assignee, due date",
+    "payload": {"title":"Implement feature X","description":"Details...","assignee":"alice@example.com","due":"2026-01-01"},
+    "env": {"delay": 0, "attachments_size": 1, "dataset_size": 10},
+    "expected": {"modal_load_ms_max": 1000, "task_create_ms_max": 2000, "first_field_visible": true}
+  },
+  {
+    "id": "case_heavy",
+    "description": "Heavy data case - many tags and large attachments to trigger lazy loading",
+    "payload": {"title":"Big import","description":"Large attachments","assignee":"bob@example.com","due":"2026-02-01"},
+    "env": {"delay": 500, "attachments_size": 10, "dataset_size": 1000},
+    "expected": {"modal_load_ms_max": 5000, "task_create_ms_max": 8000, "first_field_visible": false}
+  },
+  {
+    "id": "case_slow_network",
+    "description": "Slow network case - simulate high latency to verify perceived performance improvements",
+    "payload": {"title":"Sync issue","description":"Check sync","assignee":"carol@example.com","due":"2026-03-01"},
+    "env": {"delay": 1500, "attachments_size": 5, "dataset_size": 200},
+    "expected": {"modal_load_ms_max": 10000, "task_create_ms_max": 15000, "first_field_visible": false}
+  },
+  {
+    "id": "case_malformed",
+    "description": "Malformed inputs - missing required fields, wrong types",
+    "payload": {"title": null, "description": 12345, "assignee":"dan@example.com","due":""},
+    "env": {"delay": 0, "attachments_size": 1, "dataset_size": 10},
+    "expected": {"should_fail": true}
+  },
+  {
+    "id": "case_accessibility",
+    "description": "Accessibility and keyboard navigation test - ensure ARIA labels and keyboard flow",
+    "payload": {"title":"Accessible task","description":"Keyboard navigation test","assignee":"erin@example.com","due":"2026-04-01"},
+    "env": {"delay": 0, "attachments_size": 1, "dataset_size": 10},
+    "expected": {"accessibility_pass": true}
+  }
+]
