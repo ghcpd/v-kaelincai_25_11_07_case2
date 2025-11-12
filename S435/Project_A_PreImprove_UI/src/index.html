@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management Platform - Pre-Improvement</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Management Platform</h1>
+            <p class="subtitle">Pre-Improvement Version (Slow Modal)</p>
+        </header>
+        
+        <main>
+            <div class="dashboard">
+                <div class="task-list">
+                    <div class="task-list-header">
+                        <h2>Tasks</h2>
+                        <button id="createTaskBtn" class="btn btn-primary">Create New Task</button>
+                    </div>
+                    <div class="task-items">
+                        <div class="task-item">
+                            <h3>Sample Task 1</h3>
+                            <p>This is a sample task for demonstration</p>
+                            <span class="task-meta">Due: Nov 15, 2025 | Assigned to: John Doe</span>
+                        </div>
+                        <div class="task-item">
+                            <h3>Sample Task 2</h3>
+                            <p>Another sample task</p>
+                            <span class="task-meta">Due: Nov 20, 2025 | Assigned to: Jane Smith</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- The problematic modal - loads everything eagerly -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Task</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <!-- Poor field order - important fields buried -->
+                    <div class="form-group">
+                        <label for="project">Project:</label>
+                        <select id="project" name="project">
+                            <option value="">Select Project...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags:</label>
+                        <div id="tagsContainer" class="tags-container">
+                            <!-- All tags loaded eagerly -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attachments">Attachments:</label>
+                        <div id="attachmentsContainer" class="attachments-container">
+                            <!-- All attachments loaded eagerly -->
+                        </div>
+                        <button type="button" id="addAttachment" class="btn btn-secondary">Add Attachment</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assignee">Assignee:</label>
+                        <select id="assignee" name="assignee">
+                            <option value="">Select Assignee...</option>
+                        </select>
+                    </div>
+
+                    <!-- Critical fields buried at the bottom -->
+                    <div class="form-group">
+                        <label for="title">Task Title: *</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dueDate">Due Date: *</label>
+                        <input type="date" id="dueDate" name="dueDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority:</label>
+                        <select id="priority" name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Loading modal data...</p>
+    </div>
+
+    <script src="modal.js"></script>
+</body>
+</html>

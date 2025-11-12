@@ -1,0 +1,202 @@
+{
+  "test_cases": [
+    {
+      "id": "normal_case",
+      "name": "Normal Task Creation",
+      "description": "Typical user creating a task with title, assignee, and due date",
+      "input": {
+        "title": "Complete project documentation",
+        "description": "Write comprehensive documentation for the new feature",
+        "assignee": "john.doe@company.com",
+        "due_date": "2025-11-15",
+        "priority": "medium",
+        "tags": ["documentation", "feature"],
+        "attachments": []
+      },
+      "environment": {
+        "network_latency_ms": 100,
+        "dataset_size": "small",
+        "available_tags": 50,
+        "available_members": 25,
+        "attachment_count": 0
+      },
+      "expected_results": {
+        "modal_load_time_threshold_ms": 2000,
+        "time_to_first_field_visible_ms": 500,
+        "task_creation_time_threshold_ms": 30000,
+        "title_visible_without_scroll": true,
+        "due_date_visible_without_scroll": true,
+        "success_rate_threshold": 0.95
+      },
+      "pass_criteria": {
+        "modal_opens_successfully": true,
+        "all_required_fields_accessible": true,
+        "task_saves_correctly": true,
+        "no_js_errors": true
+      }
+    },
+    {
+      "id": "heavy_data_case",
+      "name": "Heavy Data Load Test",
+      "description": "Many tags and large attachments to trigger lazy loading benefits",
+      "input": {
+        "title": "Enterprise integration milestone",
+        "description": "Complex integration task with multiple dependencies",
+        "assignee": "senior.dev@company.com",
+        "due_date": "2025-12-01",
+        "priority": "high",
+        "tags": ["integration", "enterprise", "backend", "api", "security", "performance", "testing", "documentation"],
+        "attachments": [
+          {"name": "specification.pdf", "size": 2500000},
+          {"name": "architecture.docx", "size": 1800000},
+          {"name": "test_data.xlsx", "size": 3200000}
+        ]
+      },
+      "environment": {
+        "network_latency_ms": 200,
+        "dataset_size": "large",
+        "available_tags": 500,
+        "available_members": 150,
+        "attachment_count": 50
+      },
+      "expected_results": {
+        "modal_load_time_threshold_ms": 5000,
+        "time_to_first_field_visible_ms": 800,
+        "task_creation_time_threshold_ms": 45000,
+        "title_visible_without_scroll": true,
+        "due_date_visible_without_scroll": true,
+        "success_rate_threshold": 0.90
+      },
+      "pass_criteria": {
+        "lazy_loading_triggered": true,
+        "tags_load_after_step_one": true,
+        "attachments_load_on_demand": true,
+        "no_performance_degradation": true
+      }
+    },
+    {
+      "id": "slow_network_case",
+      "name": "Slow Network Simulation",
+      "description": "High latency network to verify perceived performance improvements",
+      "input": {
+        "title": "Remote team coordination",
+        "description": "Task for distributed team members",
+        "assignee": "remote.worker@company.com",
+        "due_date": "2025-11-20",
+        "priority": "medium",
+        "tags": ["remote", "coordination"],
+        "attachments": [{"name": "guidelines.pdf", "size": 500000}]
+      },
+      "environment": {
+        "network_latency_ms": 2000,
+        "dataset_size": "medium",
+        "available_tags": 200,
+        "available_members": 75,
+        "attachment_count": 20,
+        "connection_speed": "3g"
+      },
+      "expected_results": {
+        "modal_load_time_threshold_ms": 8000,
+        "time_to_first_field_visible_ms": 1500,
+        "task_creation_time_threshold_ms": 60000,
+        "title_visible_without_scroll": true,
+        "due_date_visible_without_scroll": true,
+        "success_rate_threshold": 0.85
+      },
+      "pass_criteria": {
+        "progressive_loading_works": true,
+        "user_can_start_typing_immediately": true,
+        "loading_indicators_shown": true,
+        "no_timeouts": true
+      }
+    },
+    {
+      "id": "malformed_input_case",
+      "name": "Malformed Input Handling",
+      "description": "Missing required fields and invalid data types",
+      "input": {
+        "title": "",
+        "description": null,
+        "assignee": "invalid-email",
+        "due_date": "not-a-date",
+        "priority": "super-ultra-high",
+        "tags": ["very-long-tag-name-that-exceeds-normal-limits-and-might-break-ui-layouts"],
+        "attachments": [
+          {"name": "", "size": -1},
+          {"name": "file.exe", "size": "not-a-number"}
+        ]
+      },
+      "environment": {
+        "network_latency_ms": 150,
+        "dataset_size": "small",
+        "available_tags": 30,
+        "available_members": 20,
+        "attachment_count": 5
+      },
+      "expected_results": {
+        "modal_load_time_threshold_ms": 2000,
+        "time_to_first_field_visible_ms": 500,
+        "task_creation_time_threshold_ms": -1,
+        "title_visible_without_scroll": true,
+        "due_date_visible_without_scroll": true,
+        "success_rate_threshold": 0.0
+      },
+      "pass_criteria": {
+        "validation_errors_shown": true,
+        "form_prevents_submission": true,
+        "error_messages_clear": true,
+        "no_js_crashes": true
+      }
+    },
+    {
+      "id": "accessibility_case",
+      "name": "Accessibility and Keyboard Navigation",
+      "description": "Screen reader friendly labels and keyboard-only navigation",
+      "input": {
+        "title": "Accessibility audit task",
+        "description": "Ensure application meets WCAG 2.1 AA standards",
+        "assignee": "a11y.expert@company.com",
+        "due_date": "2025-11-25",
+        "priority": "high",
+        "tags": ["accessibility", "audit", "compliance"],
+        "attachments": []
+      },
+      "environment": {
+        "network_latency_ms": 100,
+        "dataset_size": "medium",
+        "available_tags": 100,
+        "available_members": 50,
+        "attachment_count": 10,
+        "accessibility_mode": true
+      },
+      "expected_results": {
+        "modal_load_time_threshold_ms": 2500,
+        "time_to_first_field_visible_ms": 600,
+        "task_creation_time_threshold_ms": 35000,
+        "title_visible_without_scroll": true,
+        "due_date_visible_without_scroll": true,
+        "success_rate_threshold": 0.95
+      },
+      "pass_criteria": {
+        "keyboard_navigation_works": true,
+        "screen_reader_labels_present": true,
+        "focus_indicators_visible": true,
+        "aria_roles_correct": true,
+        "tab_order_logical": true
+      }
+    }
+  ],
+  "performance_thresholds": {
+    "modal_load_improvement_target": 0.30,
+    "task_creation_time_improvement_target": 0.20,
+    "first_field_visibility_target": 0.95,
+    "success_rate_minimum": 0.90
+  },
+  "test_configuration": {
+    "repeat_count": 3,
+    "screenshot_on_failure": true,
+    "detailed_logging": true,
+    "network_simulation": true,
+    "browser_targets": ["chrome", "firefox", "edge"]
+  }
+}

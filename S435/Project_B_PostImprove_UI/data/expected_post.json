@@ -1,0 +1,11 @@
+{
+  "expected_results": {
+    "modal_load_time_threshold_ms": 1400,
+    "time_to_first_field_visible_ms": 700,
+    "task_creation_time_threshold_ms": 36000,
+    "title_visible_without_scroll": true,
+    "due_date_visible_without_scroll": true,
+    "success_rate_threshold": 0.95
+  },
+  "notes": "This file contains expected post-improvement thresholds the UX should meet or exceed."
+}
