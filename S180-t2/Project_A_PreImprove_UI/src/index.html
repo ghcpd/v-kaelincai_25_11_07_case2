@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Pre-Improvement - Create Task Modal (Broken)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <button id="openModal">Create Task</button>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Create Task</h2>
+      <form id="createTaskForm">
+        <!-- Suboptimal order: attachments and heavy modules are loaded eagerly -->
+        <label>Attachments</label>
+        <div id="attachments">
+          <input type="file" multiple />
+        </div>
+
+        <label>Tags</label>
+        <div id="tags">Loading tags...</div>
+
+        <label>Members</label>
+        <div id="members">Loading members...</div>
+
+        <label>Title</label>
+        <input id="title" name="title" type="text" />
+
+        <label>Due Date</label>
+        <input id="due" name="due" type="date" />
+
+        <button type="submit">Create</button>
+      </form>
+      <button id="close">Close</button>
+    </div>
+  </div>
+  <script src="modal.js"></script>
+</body>
+</html>
